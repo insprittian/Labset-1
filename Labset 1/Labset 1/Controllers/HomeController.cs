@@ -14,14 +14,6 @@ namespace Labset_1.Controllers
             return View();
         }
 
-        public IActionResult Post(int id)
-        {
-            Post post = new Post();
-            post.Title = "My Blog Post";
-            post.PostedDate = DateTime.Now;
-            post.Author = "Sam Zhao";
-            post.Body = "This is my first blogpost";
-            return View(post);
-        }
+        
     }
 }
