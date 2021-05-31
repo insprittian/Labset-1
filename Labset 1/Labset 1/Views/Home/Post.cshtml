@@ -1,0 +1,17 @@
+﻿@model Labset_1.Models.Post
+
+<div class='blog-post'>
+    <h2 class='title'>
+        <a href="#">@Model.Title</a>
+    </h2>
+    <p class='metadata'>
+        <span>@Model.PostedDate</span>
+        by <a class="author" href='#'>@Model.Author</a>
+    </p>
+    <section class="body">
+        <p>Hello, and welcome to my blog!</p>
+        <p>
+            @Model.Body
+        </p>
+    </section>
+</div><!-- /.blog-post -->
