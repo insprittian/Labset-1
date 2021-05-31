@@ -19,19 +19,18 @@ namespace Labset_1
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app//, IHostingEnvironment env
-                                                       )
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseMvc(
                 routes => routes.MapRoute("Default",
                 "{controller=Home}/{action=Index}/{id?}"));
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
             app.UseFileServer();
 
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
             //app.Use(async (context, next) =>
             //{
