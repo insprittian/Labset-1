@@ -8,6 +8,10 @@ namespace Labset_1.Models
 {
     public class Post
     {
+        [Key]
+        public string PostID { get; set; }
+
+
         [Required]
         [Display(Name = "Blog Post Title")]
         [StringLength(100, MinimumLength = 5, ErrorMessage = "Title must be between 5 and 100 characters long")]
