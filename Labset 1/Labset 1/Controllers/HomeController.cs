@@ -14,6 +14,15 @@ namespace Labset_1.Controllers
             return View();
         }
 
-        
+        public IActionResult Error()
+        {
+            return View();
+        }
+
+        public IActionResult Causeanerror()
+        {
+            throw new Exception("Error!");
+        }
+
     }
 }

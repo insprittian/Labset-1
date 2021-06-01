@@ -10,21 +10,29 @@ namespace Labset_1.Controllers
 {
     public class PostsController : Controller
     {
+        #region Dependency Injection
+
         private readonly BlogDataContext _db;
         public PostsController(BlogDataContext db)
         {
             _db = db;
         }
 
+        #endregion
+
+        #region Index
+
         public IActionResult Index()
         {
-            IEnumerable<Post> posts = _db.Posts.ToArray();
-            IEnumerable<Post> mostrencentposts = _db.Posts.OrderByDescending(x =>
+            //IEnumerable<Post> posts = _db.Posts.ToArray();
+            IEnumerable<Post> mostrecentposts = _db.Posts.OrderByDescending(x =>
            x.PostedDate).Take(5).ToArray();
-            return View(posts);
+            return View(mostrecentposts);
         }
 
-        #region Get: Create Post View
+        #endregion
+
+        #region GET: Create Post View
         // GET Create View
         public IActionResult Create()
         {
@@ -33,7 +41,7 @@ namespace Labset_1.Controllers
 
         #endregion
 
-        #region Post: Create Post
+        #region POST: Create Post
         // Post Create Post
         [HttpPost]
         public IActionResult Create(Post post)
@@ -52,8 +60,7 @@ namespace Labset_1.Controllers
 
         #endregion
 
-
-        #region old Post method
+        #region GET: Details but called Post
         public IActionResult Post(string id)
         {
             var post = _db.Posts.FirstOrDefault(m => m.PostID == id);
