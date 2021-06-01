@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Labset_1.Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Labset_1
 {
@@ -16,6 +19,11 @@ namespace Labset_1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<BlogDataContext>(options =>
+            {
+                string connectionString = @"Server=(LocalDb)\MSSQLLocalDb;Database=AspNetBlog";
+                options.UseSqlServer(connectionString);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

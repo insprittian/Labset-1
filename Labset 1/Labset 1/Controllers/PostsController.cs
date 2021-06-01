@@ -4,14 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Labset_1.Models;
+using Labset_1.Data;
 
 namespace Labset_1.Controllers
 {
     public class PostsController : Controller
     {
+        private readonly BlogDataContext _db;
+        public PostsController(BlogDataContext db)
+        {
+            _db = db;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Post> posts = _db.Posts.ToArray();
+            IEnumerable<Post> mostrencentposts = _db.Posts.OrderByDescending(x =>
+           x.PostedDate).Take(5).ToArray();
+            return View(posts);
         }
 
         #region Get: Create Post View
@@ -34,21 +44,23 @@ namespace Labset_1.Controllers
             }
             post.PostedDate = DateTime.Now;
             post.Author = User.Identity.Name;
+            _db.Posts.Add(post);
+            _db.SaveChanges();
 
-            return View();
+            return RedirectToAction("Post", new { id = post.PostID });
         }
 
         #endregion
 
 
-        #region Post
-        public IActionResult Post(int id)
+        #region old Post method
+        public IActionResult Post(string id)
         {
-            Post post = new Post();
-            post.Title = "My Blog Post";
-            post.PostedDate = DateTime.Now;
-            post.Author = "Sam Zhao";
-            post.Body = "This is my first blogpost";
+            var post = _db.Posts.FirstOrDefault(m => m.PostID == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
             return View(post);
         }
 
